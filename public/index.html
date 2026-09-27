@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>House Tenant & Billing System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Property Management Dashboard</p>
+          <h1>House Tenant & Billing System</h1>
+        </div>
+        <div class="topbar-badge">Live overview</div>
+      </header>
+
+      <main class="dashboard">
+        <section class="summary-grid" id="summaryGrid">
+          <article class="summary-card accent-blue">
+            <div class="icon">👥</div>
+            <div>
+              <p>Total tenants</p>
+              <h3 id="totalTenants">0</h3>
+            </div>
+          </article>
+
+          <article class="summary-card accent-green">
+            <div class="icon">🏠</div>
+            <div>
+              <p>Occupied units</p>
+              <h3 id="occupiedUnits">0</h3>
+            </div>
+          </article>
+
+          <article class="summary-card accent-orange">
+            <div class="icon">💸</div>
+            <div>
+              <p>Outstanding rent</p>
+              <h3 id="outstandingRent">$0.00</h3>
+            </div>
+          </article>
+
+          <article class="summary-card accent-red">
+            <div class="icon">⚡</div>
+            <div>
+              <p>Utility bills due</p>
+              <h3 id="outstandingUtilityBills">$0.00</h3>
+            </div>
+          </article>
+        </section>
+
+        <section class="forms-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Add Unit</h2>
+            </div>
+            <form id="unitForm" class="entry-form">
+              <div class="field-row two-col">
+                <label>
+                  <span>Unit number</span>
+                  <input type="text" name="unit_number" placeholder="A-101" required />
+                </label>
+                <label>
+                  <span>Type</span>
+                  <select name="unit_type" required>
+                    <option value="Studio">Studio</option>
+                    <option value="1BR">1BR</option>
+                    <option value="2BR">2BR</option>
+                    <option value="3BR">3BR</option>
+                    <option value="Suite">Suite</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="field-row two-col">
+                <label>
+                  <span>Monthly rent</span>
+                  <input type="number" name="monthly_rent" step="0.01" placeholder="1500" required />
+                </label>
+                <label>
+                  <span>Status</span>
+                  <select name="status">
+                    <option value="Occupied">Occupied</option>
+                    <option value="Vacant">Vacant</option>
+                    <option value="Maintenance">Maintenance</option>
+                  </select>
+                </label>
+              </div>
+
+              <button type="submit">Add unit</button>
+            </form>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Add Tenant</h2>
+            </div>
+            <form id="tenantForm" class="entry-form">
+              <div class="field-row two-col">
+                <label>
+                  <span>Full name</span>
+                  <input type="text" name="name" placeholder="John Doe" required />
+                </label>
+                <label>
+                  <span>Email</span>
+                  <input type="email" name="email" placeholder="john@example.com" required />
+                </label>
+              </div>
+
+              <div class="field-row two-col">
+                <label>
+                  <span>Phone</span>
+                  <input type="text" name="phone" placeholder="+1 555 111 2222" />
+                </label>
+                <label>
+                  <span>Unit</span>
+                  <select name="unit_id" id="tenantUnitSelect" required></select>
+                </label>
+              </div>
+
+              <div class="field-row two-col">
+                <label>
+                  <span>Move-in date</span>
+                  <input type="date" name="move_in_date" required />
+                </label>
+                <label>
+                  <span>Status</span>
+                  <select name="status">
+                    <option value="Active">Active</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </label>
+              </div>
+
+              <button type="submit">Add tenant</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="forms-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Record Rent Payment</h2>
+            </div>
+            <form id="rentForm" class="entry-form">
+              <div class="field-row two-col">
+                <label>
+                  <span>Tenant</span>
+                  <select name="tenant_id" id="rentTenantSelect" required></select>
+                </label>
+                <label>
+                  <span>Amount</span>
+                  <input type="number" name="amount" step="0.01" placeholder="1500" required />
+                </label>
+              </div>
+
+              <div class="field-row two-col">
+                <label>
+                  <span>Payment date</span>
+                  <input type="date" name="payment_date" required />
+                </label>
+                <label>
+                  <span>Method</span>
+                  <select name="method">
+                    <option value="Bank Transfer">Bank Transfer</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Mobile Wallet">Mobile Wallet</option>
+                    <option value="Card">Card</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="field-row">
+                <label>
+                  <span>Status</span>
+                  <select name="status">
+                    <option value="Paid">Paid</option>
+                    <option value="Unpaid">Unpaid</option>
+                  </select>
+                </label>
+              </div>
+
+              <button type="submit">Record payment</button>
+            </form>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Add Utility Bill</h2>
+            </div>
+            <form id="utilityForm" class="entry-form">
+              <div class="field-row two-col">
+                <label>
+                  <span>Tenant</span>
+                  <select name="tenant_id" id="utilityTenantSelect"></select>
+                </label>
+                <label>
+                  <span>Unit</span>
+                  <select name="unit_id" id="utilityUnitSelect"></select>
+                </label>
+              </div>
+
+              <div class="field-row two-col">
+                <label>
+                  <span>Bill type</span>
+                  <select name="bill_type" required>
+                    <option value="Electricity">Electricity</option>
+                    <option value="Water">Water</option>
+                    <option value="Internet">Internet</option>
+                    <option value="Gas">Gas</option>
+                    <option value="Maintenance">Maintenance</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Amount</span>
+                  <input type="number" name="amount" step="0.01" placeholder="120" required />
+                </label>
+              </div>
+
+              <div class="field-row two-col">
+                <label>
+                  <span>Due date</span>
+                  <input type="date" name="due_date" required />
+                </label>
+                <label>
+                  <span>Billing month</span>
+                  <input type="text" name="bill_month" placeholder="September 2025" required />
+                </label>
+              </div>
+
+              <div class="field-row">
+                <label>
+                  <span>Status</span>
+                  <select name="status">
+                    <option value="Unpaid">Unpaid</option>
+                    <option value="Paid">Paid</option>
+                  </select>
+                </label>
+              </div>
+
+              <button type="submit">Add bill</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="table-section">
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Tenants</h2>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Unit</th>
+                    <th>Monthly rent</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="tenantTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="two-column-table">
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Rent payments</h2>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tenant</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="paymentTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Utility bills</h2>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Bill type</th>
+                    <th>Unit</th>
+                    <th>Amount</th>
+                    <th>Due date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="utilityTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
